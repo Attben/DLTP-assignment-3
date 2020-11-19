@@ -270,14 +270,18 @@ namespace Inlamning_3_ra_kod
             variables[selectedVariable[0] - 'A'] = X.ToString();
         }
         /* METHOD: GetVar
-         * PURPOSE: 
+         * PURPOSE: Set X to the value of the current variable 
+         * (as selected by SetAddress() ) and roll the stack up.
          * PARAMETERS: --
          * RETURNS: --
-         * FEATURES: NOT YET IMPLEMENTED
          */
         public void GetVar()
         {
-
+            double value;
+            if(double.TryParse(variables[selectedVariable[0] - 'A'], out value))
+            {
+                RollSetX(value);
+            }
         }
     }
 }
