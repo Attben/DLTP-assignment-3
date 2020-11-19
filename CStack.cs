@@ -21,6 +21,8 @@ namespace Inlamning_3_ra_kod
     {
         public double X, Y, Z, T;
         public string entry;
+        private string[] variables;
+        private string selectedVariable;
         /* CONSTRUCTOR: CStack
          * PURPOSE: create a new stack and init X, Y, Z, T and the text entry
          * PARAMETERS: --
@@ -29,6 +31,7 @@ namespace Inlamning_3_ra_kod
         {
             X = Y = Z = T = 0;
             entry = "";
+            variables = new string[8]; //A...H
         }
         /* METHOD: Exit
          * PURPOSE: called on exit, prepared for saving
@@ -242,14 +245,14 @@ namespace Inlamning_3_ra_kod
             T = Z; Z = Y; Y = X; X = newX;
         }
         /* METHOD: SetAddress
-         * PURPOSE: 
+         * PURPOSE: Loads the name of a a variable (A-H) so its
+         * properties can be used in future operations.
          * PARAMETERS: string name - variable name
          * RETURNS: --
-         * FEATURES: NOT YET IMPLEMENTED
          */
         public void SetAddress(string name)
         {
-
+            selectedVariable = name;
         }
         /* METHOD: SetVar
          * PURPOSE: 
