@@ -24,6 +24,7 @@ namespace Inlamning_3_ra_kod
         public string entry;
         private string[] variables;
         private string selectedVariable;
+        private string storedVarsPath;
         /* CONSTRUCTOR: CStack
          * PURPOSE: create a new stack and init X, Y, Z, T and the text entry
          * PARAMETERS: --
@@ -38,7 +39,8 @@ namespace Inlamning_3_ra_kod
             //Try to initialize variables with values from a file.
             try
             {
-                string storedVarsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\molkfreecalc.clc";
+                storedVarsPath = Environment.GetFolderPath(
+                    Environment.SpecialFolder.UserProfile) + "\\molkfreecalc.clc";
                 using (StreamReader sr = new StreamReader(storedVarsPath))
                 {
                     string[] storedVars = sr.ReadLine().Split('|');
@@ -64,7 +66,17 @@ namespace Inlamning_3_ra_kod
          */
         public void Exit()
         {
-
+            StringBuilder varsString = new StringBuilder();
+            varsString.AppendFormat("{0}|", X.ToString());
+            varsString.AppendFormat("{0}|", Y.ToString());
+            varsString.AppendFormat("{0}|", Z.ToString());
+            varsString.AppendFormat("{0}|", T.ToString());
+            varsString.Replace('\n', '|');
+            varsString.Append(string.Join("|", variables));
+            using (StreamWriter sw = new StreamWriter(storedVarsPath))
+            {
+                sw.Write(varsString);
+            }
         }
         /* METHOD: StackString
          * PURPOSE: construct a string to write out in a stack view
