@@ -31,7 +31,8 @@ namespace Inlamning_3_ra_kod
         {
             X = Y = Z = T = 0;
             entry = "";
-            variables = new string[8]; //A...H
+            variables = new string[8]; //Capacity of 8 to fit A...H
+            selectedVariable = "A"; //Preselect A just for convenience's sake.
         }
         /* METHOD: Exit
          * PURPOSE: called on exit, prepared for saving
@@ -55,11 +56,15 @@ namespace Inlamning_3_ra_kod
         /* METHOD: VarString
          * PURPOSE: construct a string to write out in a variable list
          * PARAMETERS: --
-         * RETURNS: NOT YET IMPLEMENTED
          */
         public string VarString()
         {
-            return "insertme";
+            StringBuilder variableValues = new StringBuilder();
+            foreach(string s in variables)
+            {
+                variableValues.AppendLine(s);
+            }
+            return variableValues.ToString();
         }
         /* METHOD: SetX
          * PURPOSE: set X with overwrite
@@ -255,14 +260,14 @@ namespace Inlamning_3_ra_kod
             selectedVariable = name;
         }
         /* METHOD: SetVar
-         * PURPOSE: 
+         * PURPOSE: Set the current variable (as selected by SetAddress() )
+         * to the value of X (represented in string form).
          * PARAMETERS: --
          * RETURNS: --
-         * FEATURES: NOT YET IMPLEMENTED
          */
         public void SetVar()
         {
-
+            variables[selectedVariable[0] - 'A'] = X.ToString();
         }
         /* METHOD: GetVar
          * PURPOSE: 
