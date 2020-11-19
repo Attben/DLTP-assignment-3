@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,28 @@ namespace Inlamning_3_ra_kod
             entry = "";
             variables = new string[8]; //Capacity of 8 to fit A...H
             selectedVariable = "A"; //Preselect A just for convenience's sake.
+
+            //Try to initialize variables with values from a file.
+            try
+            {
+                string storedVarsPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\molkfreecalc.clc";
+                using (StreamReader sr = new StreamReader(storedVarsPath))
+                {
+                    string[] storedVars = sr.ReadLine().Split('|');
+                    X = double.Parse(storedVars[0]);
+                    Y = double.Parse(storedVars[1]);
+                    Z = double.Parse(storedVars[2]);
+                    T = double.Parse(storedVars[3]);
+                    for(int n = 0; n < 8; ++n)
+                    {
+                        variables[n] = storedVars[n + 4];
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //Do nothing, just use default values for all variables.
+            }
         }
         /* METHOD: Exit
          * PURPOSE: called on exit, prepared for saving
@@ -274,6 +297,7 @@ namespace Inlamning_3_ra_kod
          * (as selected by SetAddress() ) and roll the stack up.
          * PARAMETERS: --
          * RETURNS: --
+         * FAILS: Does nothing if the current variable is null.
          */
         public void GetVar()
         {
