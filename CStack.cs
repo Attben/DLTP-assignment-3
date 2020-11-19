@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Inlamning_3_ra_kod
 {
@@ -60,7 +57,7 @@ namespace Inlamning_3_ra_kod
             }
         }
         /* METHOD: Exit
-         * PURPOSE: called on exit, prepared for saving
+         * PURPOSE: called on exit, saves all variables to a file.
          * PARAMETERS: --
          * RETURNS: --
          */
@@ -71,7 +68,6 @@ namespace Inlamning_3_ra_kod
             varsString.AppendFormat("{0}|", Y.ToString());
             varsString.AppendFormat("{0}|", Z.ToString());
             varsString.AppendFormat("{0}|", T.ToString());
-            varsString.Replace('\n', '|');
             varsString.Append(string.Join("|", variables));
             using (StreamWriter sw = new StreamWriter(storedVarsPath))
             {
